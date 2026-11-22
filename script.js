@@ -48,21 +48,30 @@ const displayData = (membersExpenses) => {
     setStatus(`Showing ${membersExpenses.length} result${membersExpenses.length === 1 ? "" : "s"}.`);
 
     //  Loop through each member and extract specific details
-    membersExpenses.forEach((member) => {
+    membersExpenses.forEach((member, index) => {
         //  Destructure the member object to extract relevant information
         const { council_member, ward_office, journal_date, expense_type, amount } = member;
 
-        console.log(`Member: ${council_member}, ${ward_office}, ${journal_date}, ${expense_type}, ${amount}`);
+        const formattedDate = journal_date
+            ? new Date(journal_date).toLocaleDateString()
+            : "";
+        const formattedAmount = amount ? `$${Number(amount).toFixed(2)}` : "";
+
+        console.log(`Member: ${council_member}, ${ward_office}, ${formattedDate}, ${expense_type}, ${formattedAmount}`);
 
         const rowValues = [
             council_member ?? "",
             ward_office ?? "",
-            journal_date ?? "",
+            formattedDate,
             expense_type ?? "",
-            amount ?? ""
+            formattedAmount
         ];
 
         const newTr = document.createElement("tr");
+
+        if (index % 2 === 1) {
+            newTr.classList.add("even-row");
+        }
 
         for (const value of rowValues) {
             const newTd = document.createElement("td");
