@@ -1,0 +1,220 @@
+body {
+    margin: 0;
+    padding: 50px 20px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, #262882 0%, #4b78b9 55%, #5ea8f6 100%) fixed;
+}
+
+h1 {
+    max-width: 960px;
+    margin: 0 auto 20px;
+    padding: 20px 16px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 30px;
+    color: #262882;
+    text-shadow: 2px 2px 3px rgba(175, 175, 20, 0.75);
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.65);
+}
+
+#searchSection {
+    max-width: 960px;
+    margin: 0 auto 20px;
+    padding: 20px 24px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.88);
+    border-radius: 5px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.65);
+}
+
+#searchForm {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1 1 150px;
+}
+
+.form-group:first-child {
+    flex: 2 1 240px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+    text-transform: capitalize;
+    text-shadow: 2px 2px 3px rgba(175, 175, 20, 0.75);
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px 12px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #222;
+    background-color: #fff;
+    border: 1px solid rgba(75, 120, 185, 0.65);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #262882;
+    box-shadow: 0 0 0 2px rgba(94, 168, 246, 0.35);
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+}
+
+#searchBtn,
+#clearBtn {
+    padding: 10px 20px;
+    font-size: 15px;
+    font-family: inherit;
+    font-weight: bold;
+    border: 1px solid rgba(75, 120, 185, 0.65);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#searchBtn {
+    background-color: #5ea8f6;
+    color: #fff;
+    box-shadow: 1px 1px 2px rgba(140, 0, 0, 0.75);
+    text-shadow: 1px 1px 2px rgba(130, 0, 0, 0.85);
+}
+
+#searchBtn:hover {
+    background-color: #4693e6;
+}
+
+#clearBtn {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #262882;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+#clearBtn:hover {
+    background-color: rgba(94, 168, 246, 0.2);
+}
+
+#statusMessage {
+    max-width: 960px;
+    margin: 0 auto 16px;
+    padding: 10px 16px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.88);
+    border-left: 4px solid #5ea8f6;
+    border-radius: 4px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.45);
+    color: #262882;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#statusMessage:empty {
+    display: none;
+}
+
+#statusMessage.error {
+    border-left-color: #c62828;
+    color: #8c0000;
+}
+
+#expenseTable {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto 20px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: rgba(255, 255, 255, 0.88);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.65);
+}
+
+#expenseTable thead th {
+    padding: 14px 16px;
+    background-color: #5ea8f6;
+    border-bottom: 2px solid rgba(75, 120, 185, 0.65);
+    border-right: 1px solid rgba(75, 120, 185, 0.45);
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    text-transform: capitalize;
+    text-shadow: 1px 1px 2px rgba(130, 0, 0, 0.85);
+}
+
+#expenseTable thead th:last-child {
+    border-right: none;
+    text-align: right;
+}
+
+#expenseTable tbody td {
+    padding: 11px 16px;
+    font-size: 15px;
+    color: #222;
+    border-bottom: 1px solid rgba(75, 120, 185, 0.25);
+    border-right: 1px solid rgba(75, 120, 185, 0.15);
+}
+
+#expenseTable tbody td:first-child {
+    font-weight: bold;
+    color: #262882;
+    text-shadow: 1px 1px 2px rgba(175, 175, 20, 0.35);
+}
+
+#expenseTable tbody td:last-child {
+    border-right: none;
+    text-align: right;
+    font-weight: bold;
+    color: #262882;
+    white-space: nowrap;
+}
+
+#expenseTable tbody tr.even-row {
+    background-color: rgba(94, 168, 246, 0.12);
+}
+
+#expenseTable tbody tr:hover {
+    background-color: rgba(94, 168, 246, 0.28);
+}
+
+#expenseTable tbody tr:last-child td {
+    border-bottom: none;
+}
+
+footer {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 10px 16px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 3px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.8), 1px 1px 3px rgba(0, 0, 0, 0.75);
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 10px;
+    line-height: 1.4;
+    color: #333;
+}
+
+footer p {
+    margin: 0;
+}
