@@ -1,26 +1,51 @@
-async function getMembersExpenses() {
+const setStatus = (message, isError = false) => {
+    const statusMessage = document.getElementById("statusMessage");
+    statusMessage.textContent = message;
+    statusMessage.classList.toggle("error", isError);
+};
+
+async function getMembersExpenses(searchTerm = "", sortBy = "journal_date DESC", limit = "100") {
     try {
+        let apiUrl = "https://data.winnipeg.ca/resource/mgde-4fua.json?";
+
+        if (searchTerm) {
+            const lowerSearch = searchTerm.toLowerCase();
+            apiUrl += `$where=lower(council_member) LIKE '%${lowerSearch}%' OR lower(ward_office) LIKE '%${lowerSearch}%'&`;
+        }
+
+        apiUrl += `$order=${sortBy}` +
+                  `&$limit=${limit}`;
+
+        const encodedURL = encodeURI(apiUrl);
+
         //  'fetch' returns a promise that resolves to the
         //  Response object representing the response of a request
-
-        const response = await fetch("https://data.winnipeg.ca/resource/mgde-4fua.json")
+        const response = await fetch(encodedURL);
 
         //  Check if the response status is ok
         if (!response.ok) {
-            throw new Error(`HTTP Error! status: ${response.status}`)
+            throw new Error(`HTTP Error! status: ${response.status}`);
         }
 
         //  the json() method parses the response body as JSON
-        return response.json()
+        return await response.json();
     } catch (error) {
         //  Error handling: Logs the error message
-        console.error("Failed to fetch members expenses:", error.message)
+        console.error("Failed to fetch members expenses:", error.message);
+        return null;
     }
 }
 
 const displayData = (membersExpenses) => {
     const tbody = document.getElementById("list");
     tbody.innerHTML = "";
+
+    if (membersExpenses.length === 0) {
+        setStatus("No rows found. Try different search criteria.");
+        return;
+    }
+
+    setStatus(`Showing ${membersExpenses.length} result${membersExpenses.length === 1 ? "" : "s"}.`);
 
     //  Loop through each member and extract specific details
     membersExpenses.forEach((member) => {
@@ -50,14 +75,55 @@ const displayData = (membersExpenses) => {
 };
 
 async function listMembersExpenses() {
-    const membersExpenses = await getMembersExpenses();
+    const searchInput = document.getElementById("searchInput");
+    const sortSelect = document.getElementById("sortSelect");
+    const limitSelect = document.getElementById("limitSelect");
+    const tbody = document.getElementById("list");
 
-    if (!membersExpenses) return;
+    const searchTerm = searchInput.value.trim();
+    const sortBy = sortSelect.value;
+    const limit = limitSelect.value;
+
+    setStatus("Loading expenses...");
+
+    const membersExpenses = await getMembersExpenses(searchTerm, sortBy, limit);
+
+    if (!membersExpenses) {
+        tbody.innerHTML = "";
+        setStatus("Failed to fetch expense data. Please try again later.", true);
+        return;
+    }
 
     displayData(membersExpenses);
 }
 
 //  Add the event listener to run when the page is loaded
 document.addEventListener("DOMContentLoaded", () => {
+    const searchForm = document.getElementById("searchForm");
+    const searchInput = document.getElementById("searchInput");
+    const sortSelect = document.getElementById("sortSelect");
+    const limitSelect = document.getElementById("limitSelect");
+    const clearBtn = document.getElementById("clearBtn");
+
+    searchForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        listMembersExpenses();
+    });
+
+    clearBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        sortSelect.value = "journal_date DESC";
+        limitSelect.value = "100";
+        listMembersExpenses();
+    });
+
+    sortSelect.addEventListener("change", () => {
+        listMembersExpenses();
+    });
+
+    limitSelect.addEventListener("change", () => {
+        listMembersExpenses();
+    });
+
     listMembersExpenses();
 });
