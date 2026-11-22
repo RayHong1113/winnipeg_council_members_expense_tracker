@@ -4,21 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Council Members Expense Tracker</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
 </head>
 <body>
-    <table aria-label="Council Members Expense Tracker" role="table" id="expenseTable">
-			<thead>
-				<tr>
-					<th>Member Name</th>
+    <header>
+        <h1>Council Members Expense Tracker</h1>
+    </header>
+
+    <main>
+        <section id="searchSection" aria-label="Search Expenses">
+            <form id="searchForm">
+                <div class="form-group">
+                    <label for="searchInput">Search Member or Ward:</label>
+                    <input
+                        type="text"
+                        id="searchInput"
+                        name="search"
+                        placeholder="e.g. Old Kildonan or St. Vital"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="sortSelect">Sort By:</label>
+                    <select id="sortSelect" name="sort">
+                        <option value="journal_date DESC">Newest Date</option>
+                        <option value="journal_date ASC">Oldest Date</option>
+                        <option value="amount DESC">Highest Amount</option>
+                        <option value="amount ASC">Lowest Amount</option>
+                        <option value="council_member ASC">Member Name (A-Z)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="limitSelect">Limit:</label>
+                    <select id="limitSelect" name="limit">
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100" selected>100</option>
+                        <option value="200">200</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" id="searchBtn">Search</button>
+                    <button type="button" id="clearBtn">Clear</button>
+                </div>
+            </form>
+        </section>
+
+        <p id="statusMessage" role="status" aria-live="polite"></p>
+
+        <table aria-label="Council Members Expense Tracker" role="table" id="expenseTable">
+            <thead>
+                <tr>
+                    <th>Member Name</th>
                     <th>Ward Office</th>
                     <th>Expense Date</th>
                     <th>Expense Type</th>
                     <th>Amount</th>
-				</tr>
-			</thead>
-			<tbody id="list"></tbody>
-		</table>
+                </tr>
+            </thead>
+            <tbody id="list"></tbody>
+        </table>
+    </main>
+
+    <footer>
+        <p>Data provided by the City of Winnipeg Open Data Portal</p>
+    </footer>
 </body>
 </html>
