@@ -59,6 +59,7 @@ h1 {
 
 .form-group input,
 .form-group select {
+    width: 100%;
     padding: 10px 12px;
     font-size: 15px;
     font-family: inherit;
@@ -217,4 +218,28 @@ footer {
 
 footer p {
     margin: 0;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 15px 8px;
+    }
+
+    h1 {
+        font-size: 20px;
+        padding: 14px 10px;
+    }
+
+    .form-group,
+    .form-group:first-child {
+        flex: none;
+        width: 100%;
+    }
+
+    #expenseTable thead th,
+    #expenseTable tbody td {
+        padding: 6px 4px;
+        font-size: 12px;
+    }
+
 }
