@@ -113,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const sortSelect = document.getElementById("sortSelect");
     const limitSelect = document.getElementById("limitSelect");
     const clearBtn = document.getElementById("clearBtn");
+    const tbody = document.getElementById("list");
 
     searchForm.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -123,16 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
         searchInput.value = "";
         sortSelect.value = "journal_date DESC";
         limitSelect.value = "100";
-        listMembersExpenses();
+        tbody.innerHTML = "";
+        setStatus("");
     });
-
-    sortSelect.addEventListener("change", () => {
-        listMembersExpenses();
-    });
-
-    limitSelect.addEventListener("change", () => {
-        listMembersExpenses();
-    });
-
-    listMembersExpenses();
 });
